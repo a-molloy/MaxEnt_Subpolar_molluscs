@@ -1,5 +1,5 @@
-## MaxEnt_Subpolar_molluscs
-# Aoife Molloy 2024-01-18
+# MaxEnt_Subpolar_molluscs
+## Aoife Molloy 2024-01-18
 MaxEnt model to predict Sub-Antarctic molluscs future distributions in response to climate change. For use in Red List assessments.
 Uses distribution data pulled from GBIF and OBIS, cross checked using published papers and expert opinion. Data was cleaned to remove blanks, 
 repeated values, and NA values.
