@@ -1,0 +1,75 @@
+---
+title: "Distribution data cleaning"
+author: "Aoife Molloy"
+date: "2024-01-30"
+output: html_document
+---
+
+# Clean species distribution data
+
+## Load dplyr
+
+```{r}
+library("dplyr")
+```
+
+## Read in .csv
+
+```{r}
+data <- read.csv("C:/path/to/directory/Z.patagonica.csv")
+```
+
+## Ensure all names in "species" column are uniform
+
+```{r}
+
+data$species <- "Zygochlamys patagonica"
+```
+
+## Tidy NAs, blanks, and duplicates
+
+```{r}
+## Remove rows that are blank or NA in Latitude and Longitude columns
+cleaned_data <- data %>%
+  filter(!(is.na(Latitude) | Latitude == "") & !(is.na(Longitude) | Longitude == ""))
+
+## remove duplicate pairs of coordinates
+cleaned_data <- data %>%
+  distinct(Latitude, Longitude, .keep_all = TRUE)
+
+```
+
+## Create name and path of cleaned data, write .csv
+
+```{r}
+Z_patagonica <- "C:/path/to/All_species_clean/Z_patagonica.csv"
+```
+
+```{r}
+write.csv(cleaned_data, Z_patagonica)
+```
+
+## Combine .csv files
+
+```{r}
+
+## list .csv files
+csv_files <- list.files(pattern = "\\.csv$", full.names = TRUE)
+## read .csv files
+combined_data <- do.call(rbind, lapply(csv_files, read.csv))
+
+## remove blank rows
+combined_data <- combined_data[complete.cases(combined_data), ]
+```
+
+## Specify path for combined files
+
+```{r}
+combined_file_path <- "C:/path/to/All_species_clean/All_species_clean.csv"
+```
+
+## Save combined .csv file to path
+
+```{r}
+write.csv(combined_data, file = combined_file_path, row.names = FALSE)
+```
