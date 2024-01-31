@@ -1,0 +1,50 @@
+---
+title: "Distribution data cleaning"
+author: "Aoife Molloy"
+date: "2024-01-30"
+output: html_document
+---
+
+# Clean species distribution data
+
+## Load dplyr
+
+```{r}
+library("dplyr")
+```
+
+## Read in .csv
+
+```{r}
+data <- read.csv("N.eatoni.csv")
+```
+
+## Ensure all names in "species" column are uniform
+
+```{r}
+
+data$species <- "Neobuccinum eatoni"
+```
+
+## Tidy NAs, blanks, and duplicates
+
+```{r}
+## Remove rows that are blank or NA in Latitude and Longitude columns
+cleaned_data <- data %>%
+  filter(!(is.na(Latitude) | Latitude == "") & !(is.na(Longitude) | Longitude == ""))
+
+## remove duplicate pairs of coordinates
+cleaned_data <- data %>%
+  distinct(Latitude, Longitude, .keep_all = TRUE)
+
+```
+
+## Create name and path of cleaned data, write .csv
+
+```{r}
+N_eatoni <- "C:/Users/molloya5.COLLEGE/Desktop/All_species_clean/N_eatoni.csv"
+```
+
+```{r}
+write.csv(cleaned_data, N_eatoni)
+```
