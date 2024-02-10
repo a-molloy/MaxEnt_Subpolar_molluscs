@@ -1,6 +1,23 @@
 # MaxEnt model for Antarctic and Sub-Antarctic molluscs response to climate change
 ### Aoife Molloy 2024-01-18
 ------
+
+library(dplyr)
+library(rtiff)
+library(readr)
+library(rgeos)
+library(sm)
+library(sp)
+library(sf)
+library(smoothr)
+library(raster) 
+library(dismo)
+library(rgdal)
+library(tidyr)
+library(ggplot2)
+library(rJava)
+library(devtools)
+
 ## 1. Compile species distribution coordinates
   
 ## 2. Clean distribution data
@@ -45,7 +62,7 @@ writeRaster(combined_world, "C:/Users/molloya5.COLLEGE/Desktop/For Aoife/combine
   #occurrence_Kbic <- K_bicolor[, c("Longitude", "Latitude")]
   #coordinates(occurrence_Kbic) <- c("Longitude", "Latitude")
   # or "      "                 <- ~Longitude + Latitude
-  ## look for erroneous points
+ 
 ## 6. Crop temperature raster to match the study area raster
   current_temp <- crop(hist, study_raster)
 
